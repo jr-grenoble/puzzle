@@ -284,14 +284,19 @@ prompt ()
 print "Posons G = { (i,j,k) ∈ ⟦ 1 .. 36 ⟧³, i ≤ j ≤ k, ijk = 36 }"
 print "et si β est le sac (bag) β = {{ i+j+k | (i,j,k) ∈ G }} avec mᵦ: β ⟶ ℕ, s ⟼ la multiplicité de s dans β"
 print "les âges des filles correspondent à { (i,j,k) ∈ G | mᵦ(i+j+k) > 1, i < j }, soit:"
-altgirls = {
+altgirls = {    # dictionaire de la forme { triplet: valeur } avec la valeur égale à la somme des âges du triplet, c'est une combinaison de G et β
     ( i, j, k ): i + j + k
     for i in range ( 1, prod + 1 )
     for j in range ( i, prod + 1 )
     for k in range ( j, prod + 1 )
     if i * j * k == prod
     }
-altgirls = [ girls for girls in altgirls if altgirls.values().count ( altgirls [ girls ] ) > 1 and girls [ 0 ] < girls [ 1 ] ]
+altgirls = [ # t est un triplet d'âge, donc une clé du dictionnaire
+    t
+    for t in altgirls
+    if altgirls.values().count ( altgirls [ t ] ) > 1
+    and t [ 0 ] < t [ 1 ]
+    ]
 # ceci est équivalent à l'usage de la fonction de filtrage couplée à des expressions lambda
 # altgirls = filter ( lambda item: altgirls.values().count ( altgirls [ item ] ) > 1 and item [ 0 ] < item [ 1 ], altgirls )
 printl ( altgirls )

@@ -53,7 +53,20 @@ Quel est âge de la fille aux yeux verts ?
 # Solution
 Il y a bien sûr plusieurs façon de résoudre cette énigme. Le fichier
 [enigme.py](https://github.com/jr-grenoble/puzzle/blob/master/enigme.py)
-contient plusieurs solution détaillées ainsi que de nombreux commentaires.
+contient plusieurs solutions détaillées ainsi que de nombreux commentaires.
+
+Il est recommandé de télécharger ce fichier et de l'exécuter sans lire le source
+pour essayer de comprendre comment le programme est fait et s'en inspirer pour
+résoudre l'exercice. Le mieux est d'interrompre l'execution du programme dès que
+l'on a compris son fonctionnement (taper _q_ suivi de _return_ à l'invite ↩).
+
+Une fois décidé à creuser la solution, il est recommandé de lire le code et les
+commentaires dans leur intégralité.
 
 Une solution peu commentée, mais en ligne avec la précédente est présente dans
-[enigme-sans-texte.py](https://github.com/jr-grenoble/puzzle/blob/master/enigme-sans-texte.py)
+[enigme-sans-texte.py](https://github.com/jr-grenoble/puzzle/blob/master/enigme-sans-texte.py).
+
+Enfin une solution courte est donnée par
+[enigme-solution-courte.py](https://github.com/jr-grenoble/puzzle/blob/master/enigme-ssolution-courte.py).
+Le commentaire final de ce dernier fichier donne une solution en 6 lignes
+mais il est tout à fait possible de faire plus laid.
