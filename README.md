@@ -56,9 +56,10 @@ Il y a bien sûr plusieurs façon de résoudre cette énigme. Le fichier
 contient plusieurs solutions détaillées ainsi que de nombreux commentaires.
 
 Il est recommandé de télécharger ce fichier et de l'exécuter sans lire le source
-pour essayer de comprendre comment le programme est fait et s'en inspirer pour
+pour essayer de comprendre comment le programme fonctionne et s'en inspirer pour
 résoudre l'exercice. Le mieux est d'interrompre l'execution du programme dès que
-l'on a compris son fonctionnement (taper _q_ suivi de _return_ à l'invite ↩).
+l'on a compris son fonctionnement (taper _q_ suivi de _return_ à l'invite ↩)
+et dans tous les cas _avant d'avoir vu la solution complète_.
 
 Une fois décidé à creuser la solution, il est recommandé de lire le code et les
 commentaires dans leur intégralité.
