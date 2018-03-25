@@ -441,3 +441,12 @@ utilisent intensément Python.
 
 Moi pas (j'utilise javascript).
 """
+
+# Sans commentaires la résolution de notre problème s'écrit de façon compacte et donc illisible, en 6 lignes (b=boys, g=girls):
+#
+# b = [ ( i, j, k ) for i in range ( 1, 7 ) for j in range ( i, 7 ) for k in range ( j + 1, 7 ) if i * j * k % ( i + j + k ) == 0 and i * j * k / ( i + j + k  ) == k ]
+# print "les âges des garçons sont: ", b, "l'ainé est agé de", b [ 0 ][ 2 ], "ans."
+# prod = ( b [ 0 ][ 2 ] + 1 ) ** 2
+# g = { ( i, j, k ): i + j + k for i in range ( 1, prod + 1 ) for j in range ( i, prod + 1 ) for k in range ( j, prod + 1 ) if i * j * k == prod }
+# g = [ t for t in g if g.values().count ( g [ t ] ) > 1 and t [ 0 ] < t [ 1 ] ]
+# print "les âges des filles sont: ", g
