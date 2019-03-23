@@ -16,60 +16,65 @@
 # » chmod +x enigme.py # » est le prompt Unix/Mac/Linux
 # On peut alors lancer le programme sous la forme:
 # » ./enigme.py
-# Pour Windows, tourner dans l'interpréteur Pyton.
+# Pour Windows, tourner dans l'interpréteur Python.
 # Dans Atom, utiliser l'environement fantastique Hydrogen:
 # https://atom.io/packages/hydrogen
 # Atom et Hydrogen fonctionnent sous Linux,Unix (donc Mac) et Windows.
 
 
 # ==| Fonctions utilitaires |==
-def printl ( list ) :
+def printl(list):
     # Affiche une liste de façon propre
-    items_per_line = 6 # on peut changer cette valeur en fonction de la taille de l'écran
+    items_per_line = 6  # on peut changer cette valeur en fonction de la taille de l'écran
     index = 0
-    for item in list :
-        if index % items_per_line == 0 :
+    for item in list:
+        if index % items_per_line == 0:
             print "\n",
         index = index + 1
         print "\t", item,
     print "\n"
 
-def assess ( list ) :
+
+def assess(list):
     # Détermine si on a trouvé la solution en fonction de la taille de la liste
     # Retourne True si on trouvé (liste réduite à un seul candidat)
     # Retourne False si la liste contient plusieurs candidats
     # Avorte le programme si la liste est vide: il n'y a donc pas de solution
-    printl ( list )
-    l = len ( list )
-    if l > 1 :
+    printl(list)
+    l = len(list)
+    if l > 1:
         print """
         ...pour l'instant, la liste des candidats contient trop de candidats,
         il faut donc continuer à chercher.
         """
         return False
-    elif l == 0 :
+    elif l == 0:
         print """
         ...la liste des candidats est vide,
         il n'y a donc pas de solution, l'enigme est insoluble sans alcool.
         """
-        quit ()
-    else :
+        quit()
+    else:
         print """
         ...la liste des candidats ne contient plus qu'un élément, c'est donc la solution.
         """
         return True
 
-def prod ( list ) :
+
+def prod(list):
     # Equivalent de la fonction sum, mais calcule le produit des éléments d'une liste
     p = 1
-    for item in list :
+    for item in list:
         p = p * item
     return p
 
-def prompt () :
+
+def prompt():
     # Attend que l'utilisateur presse return
-    answer = raw_input ( "\n↩ " )
-    if answer in [ "q", "quit", "Q", "Quit", "QUIT", "s", "stop", "S", "Stop", "STOP" ] : quit ()
+    answer = raw_input("\n↩ ")
+    if answer in ["q", "quit", "Q", "Quit", "QUIT", "s", "stop", "S", "Stop", "STOP"]:
+        quit()
+
 
 # ==| Enigme |==
 enigme = """
@@ -87,8 +92,10 @@ enigme = """
     H: Je ne peux pas savoir. Mais as-tu des filles ?
     F: Oui, 3.
     H: Quel est leur âge?
-    F: Le produit de l'âge de mes filles est le carré parfait qui suit le carré de l'âge de l'ainé des garçons.
-    H: Ah! Maintenant je connais l'âge de tes garçons, mais je ne peux pas savoir celui de tes filles.
+    F: Le produit de l'âge de mes filles est le carré parfait qui suit le carré de l'âge
+       de l'ainé des garçons.
+    H: Ah! Maintenant je connais l'âge de tes garçons, mais je ne peux pas savoir celui
+       de tes filles.
     F: Regarde le numéro de ma maison sur la boite aux lettres.
        La somme des âges de mes filles est égal à ce numéro.
     H: Hélas, je ne peux toujours pas déterminer leur âge.
@@ -99,7 +106,6 @@ enigme = """
     Quel est âge de la fille aux yeux verts ?
 
     (*) l'âge est un élément de ℕ
-    (ce serait difficile de faire autrement, au moment où l'on indiquerait l'âge, ce serait déjà faux)
     """
 
 print "ENIGME"
@@ -107,47 +113,62 @@ print enigme
 
 # ==| Solution |==
 print "OK, essayons de trouver!\n"
-prompt ()
+prompt()
 
-def boys () :
+
+def boys():
     # Cette fonction gère pas à pas la recherche de l'âge des garçons
-    print "Comme la somme des âges divisé par leur produit est le plus grand des âges, aucun âge ne peut être nul."
-    print "Sinon, le produit serait nul, et donc tous les âges seraient nuls. Mais  c'est impossible car 0 ne divise pas 0."
-    print "On sait aussi que les garçons ont au plus 6 ans puisqu'ils ne vont pas à l'école primaire."
+    print """
+    Comme la somme des âges divisé par leur produit est le plus grand des âges,
+    aucun âge ne peut être nul.
+
+    Sinon, le produit serait nul, et donc tous les âges seraient nuls.
+    Mais  c'est impossible car 0 ne divise pas 0.
+
+    On sait aussi que les garçons ont au plus 6 ans
+    puisqu'ils ne vont pas à l'école primaire."
+    """
     mini = 1
     maxi = 7
-    print "L'âge minimum est donc", mini, "et cet âge est strictement inférieur à", maxi
+    print "L'âge minimum est donc", mini,
+    print "et cet âge est strictement inférieur à", maxi
     print
-    print "Commençons par chercher tous les triplets d'âges inférieurs à", maxi, "et au moins égaux à", mini, "."
-    print "Voici la liste ordonnée correpondant à l'ensemble { (i,j,k) ∈ ⟦ 1 .. 6 ⟧³, i ≤ j ≤ k }:"
+    print "Commençons par chercher tous les triplets d'âges inférieurs à", maxi,
+    print "et au moins égaux à", mini, "."
+    print """
+    Voici la liste ordonnée correpondant à l'ensemble { (i,j,k) ∈ ⟦ 1 .. 6 ⟧³, i ≤ j ≤ k }
+    """
 
     # utilisation de la déclaration de liste en compréhension
     boys = [
-        [ i, j, k ]
-        for i in range ( mini, maxi )
-        for j in range ( i, maxi )
-        for k in range ( j, maxi )
-        ]
+        [i, j, k]
+        for i in range(mini, maxi)
+        for j in range(i, maxi)
+        for k in range(j, maxi)
+    ]
 
-    if assess ( boys ) : return boys [ 0 ]
+    if assess(boys):
+        return boys[0]
 
-    prompt ()
+    prompt()
     print """
     Maintenant, on ne veut garder que les âges dont la somme divise le produit,
     et qui plus est, pour lesquels cette division est égale au(x) plus grand(s) des âges.
-    L'ensemble devient ainsi { (i,j,k) ∈ ⟦ 1 .. 6 ⟧³, i ≤ j ≤ k, i+j+k | i.j.k, i.j.k ÷ (i+j+k) = k }
-    Voici la liste:
+    L'ensemble devient ainsi :
+    { (i,j,k) ∈ ⟦ 1 .. 6 ⟧³, i ≤ j ≤ k, i+j+k | i.j.k, i.j.k ÷ (i+j+k) = k }
+    Voici la liste correspondante:
     """
     boys = [
         ages
         for ages in boys
-        if prod ( ages ) % sum ( ages ) == 0 \
-        and prod ( ages ) / sum ( ages ) == max ( ages )
-        ]
+        if prod(ages) % sum(ages) == 0
+        and prod(ages) / sum(ages) == max(ages)
+    ]
 
-    if assess ( boys ) : return boys [ 0 ]
+    if assess(boys):
+        return boys[0]
 
-    prompt ()
+    prompt()
     print """
     Mais on sait qu'il y a un aîné, il faut donc eliminer les âges candidats où il y a plusieurs ainés.
     L'ensemble devient ainsi { (i,j,k) ∈ ⟦ 1 .. 6 ⟧³, i ≤ j < k, i+j+k | ijk, ijk ÷ (i+j+k) = k }
@@ -158,17 +179,19 @@ def boys () :
     """
 
     # note: la méthode count retourne le nombre de fois qu'un élément apparaît dans une liste
-    boys = [ ages for ages in boys if ages.count ( max ( ages ) ) == 1 ]
+    boys = [ages for ages in boys if ages.count(max(ages)) == 1]
 
-    if assess ( boys ) : return boys [ 0 ]
+    if assess(boys):
+        return boys[0]
 
     # si on arrive ici, on n'a pas de solution possible
     print "Je ne sais pas comment trouver l'âge des garçons!"
-    quit ()
+    quit()
 
-def girls ( oldest ) :
+
+def girls(oldest):
     # Cette fonction gère pas à pas la recherche de l'âge des filles
-    product = ( oldest + 1 ) ** 2
+    product = (oldest + 1) ** 2
     print "L'âge de l'ainé des garçons est", oldest, \
         "donc le produit de l'âge des filles est le carré de", \
         oldest, "+ 1, soit", product, "\n"
@@ -183,47 +206,49 @@ def girls ( oldest ) :
     """
 
     girls = [
-        [ i, j, k ]
-        for i in range ( mini, maxi )
-        for j in range ( i, maxi )
-        for k in range ( j, maxi )
+        [i, j, k]
+        for i in range(mini, maxi)
+        for j in range(i, maxi)
+        for k in range(j, maxi)
         if i * j * k == product
-        ]
+    ]
 
-    if assess ( girls ) : return girls [ 0 ]
+    if assess(girls):
+        return girls[0]
 
-    prompt ()
+    prompt()
     print """
     On a beaucoup de candidats, mais l'indication du numéro de la boite au lettre va nous servir;
     calculons les sommes des âges des triplets candidats, c'est un sac (multiensemble) qui correspond
     à S = {{ i+j+k | (i,j,k) ∈ G }} :
     """
 
-    sums = [ sum ( ages ) for ages in girls ]
-    printl ( sums )
+    sums = [sum(ages) for ages in girls]
+    printl(sums)
 
-    prompt ()
+    prompt()
     print """
     Et comme le fait de connaître cette somme ne suffit pas à déterminer l'âge des filles,
     il faut que l'on cherche les doublons (ou plus) dans cette liste de sommes, soit le sac (multiensemble)
     D = {{ d ∈ S | m(d) > 1 }} si m dénote la multiplicité:
     """
     # on pourrait être plus efficace, en démontrant que sums est une liste ordonnée décroissante par construction
-    duplicates = [ d for d in sums if sums.count ( d ) > 1 ]
-    printl ( duplicates )
+    duplicates = [d for d in sums if sums.count(d) > 1]
+    printl(duplicates)
 
-    if len ( duplicates ) == 0 :
+    if len(duplicates) == 0:
         print "Il n'y a pas de doublon donc pas de solution avec les informations disponibles :("
-        quit ();
+        quit()
 
-    prompt ()
+    prompt()
     print """
     Voici la liste des âges correspondant à ces doublons, soit { (i,j,k) ∈ G | i+j+k ∈ D }:
     """
-    girls = [ ages for ages in girls if sum ( ages ) in duplicates ]
-    if assess ( girls ) : return girls [ 0 ]
+    girls = [ages for ages in girls if sum(ages) in duplicates]
+    if assess(girls):
+        return girls[0]
 
-    prompt ()
+    prompt()
     print """
     On sait qu'il y a une seule fille qui est la plus jeune.
     Dans la liste des candidats, ceux qui ont un seul benjamin
@@ -232,26 +257,28 @@ def girls ( oldest ) :
     mais cela n'aurait pas non plus respecté temporellement la logique
     de l'ami de la mère des enfants):
     """
-    girls = [ ages for ages in girls if ages.count ( min ( ages ) ) == 1 ]
-    if assess ( girls ) : return girls [ 0 ]
+    girls = [ages for ages in girls if ages.count(min(ages)) == 1]
+    if assess(girls):
+        return girls[0]
 
     print "Je ne sais pas comment déterminer l'âge des filles!"
-    quit ()
+    quit()
+
 
 # ==| Main (programme principal) |==
-boys = boys ()
+boys = boys()
 print "Les âges des garcons sont donc:", boys
-oldest = max ( boys )
+oldest = max(boys)
 print "\nEt l'âge de l'ainé des garçons est donc de", oldest, "an(s)"
 
-prompt ()
+prompt()
 
-girls = girls ( oldest )
+girls = girls(oldest)
 print "Les âges des filles sont donc:", girls
-youngest = min ( girls )
+youngest = min(girls)
 print "L'âge de la plus jeune fille (aux yeux verts) est donc de", youngest, "an(s)."
 print "\nÉtudions maintenant la façon de résoudre cette énigme."
-prompt ()
+prompt()
 print """
 L'enigme est résolue sans que ce programme n'ait eu à faire explicitement la moindre boucle.
 La méthode utilisée n'est pas optimale car on aurait pu réduire le nombre de candidats plus
@@ -264,47 +291,47 @@ par rapport à l'utilisation explicite de boucles (for).
 print "Une façon plus rapide de résoudre l'énigme est donc donnée ci-dessous."
 
 # ==| Commentaires utiles |==
-prompt ()
+prompt()
 
 print "Les âges des garçons correspondent à { (i,j,k) ∈ ⟦ 1 .. 6 ⟧³, i ≤ j < k, i+j+k | ijk, ijk ÷ (i+j+k) = k }, soit:"
 altboys = [
-    ( i, j, k )
-    for i in range ( 1, 7 )     # (i,j,k) ∈ ⟦ 1 .. 6 ⟧
-    for j in range ( i, 7 )     # i ≤ j
-    for k in range ( j + 1, 7 ) # j < k
-    if i * j * k % ( i + j + k ) == 0 \
-    and i * j * k / ( i + j + k  ) == k
-    ]
-printl ( altboys )
+    (i, j, k)
+    for i in range(1, 7)     # (i,j,k) ∈ ⟦ 1 .. 6 ⟧
+    for j in range(i, 7)     # i ≤ j
+    for k in range(j + 1, 7)  # j < k
+    if i * j * k % (i + j + k) == 0 \
+    and i * j * k / (i + j + k) == k
+]
+printl(altboys)
 
-prod = ( altboys [ 0 ][ 2 ] + 1 ) ** 2
+prod = (altboys[0][2] + 1) ** 2
 print "Le produit de l'âge des filles est donc", prod
 
-prompt ()
+prompt()
 print "Posons G = { (i,j,k) ∈ ⟦ 1 .. 36 ⟧³, i ≤ j ≤ k, ijk = 36 }"
 print "et si β est le sac (bag) β = {{ i+j+k | (i,j,k) ∈ G }} avec mᵦ: β ⟶ ℕ, s ⟼ la multiplicité de s dans β"
 print "les âges des filles correspondent à { (i,j,k) ∈ G | mᵦ(i+j+k) > 1, i < j }, soit:"
 altgirls = {    # dictionaire de la forme { triplet: valeur } avec la valeur égale à la somme des âges du triplet, c'est une combinaison de G et β
-    ( i, j, k ): i + j + k
-    for i in range ( 1, prod + 1 )
-    for j in range ( i, prod + 1 )
-    for k in range ( j, prod + 1 )
+    (i, j, k): i + j + k
+    for i in xrange(1, prod + 1)
+    for j in xrange(i, prod + 1)
+    for k in xrange(j, prod + 1)
     if i * j * k == prod
-    }
-altgirls = [ # t est un triplet d'âge, donc une clé du dictionnaire
+}
+altgirls = [  # t est un triplet d'âge, donc une clé du dictionnaire
     t
     for t in altgirls
-    if altgirls.values().count ( altgirls [ t ] ) > 1
-    and t [ 0 ] < t [ 1 ]
-    ]
+    if altgirls.values().count(altgirls[t]) > 1
+    and t[0] < t[1]
+]
 # ceci est équivalent à l'usage de la fonction de filtrage couplée à des expressions lambda
 # altgirls = filter ( lambda item: altgirls.values().count ( altgirls [ item ] ) > 1 and item [ 0 ] < item [ 1 ], altgirls )
-printl ( altgirls )
+printl(altgirls)
 
-prompt ()
+prompt()
 print "Quelques commentaires finaux suivent."
 
-prompt ()
+prompt()
 print """
 La méthode des listes en compréhension est beaucoup plus claire que celle des boucles explicites.
 Elle correspond par ailleurs à la notation ensembliste utilisée en mathématique.
@@ -316,7 +343,7 @@ est inutilement grand, la performance s'en ressentira.
 Cette notation s'étend aux dictionaires et aux ensembles (sets).
 """
 
-prompt ()
+prompt()
 print """
 Elle peut aussi s'utiliser directement pour passer des paramètres aux itérateurs.
 Par exemple, si l'on écrit:
@@ -332,9 +359,9 @@ si la liste générée excède la taille du cache.
 Mais il y a moyen d'éviter ce problème et d'être encore plus efficace.
 """
 
-prompt ()
+prompt()
 print """
-Cependant, la fonction sum permet d'opérer sur des expressions génératrices directement
+En effet, la fonction sum permet d'opérer sur des expressions génératrices directement
 (c'est le cas des fonctions max, min, et plus généralement des fonctions qui réduisent
 une liste itérable à une seule valeur).
 Il est ainsi plus efficace de calculer la somme ci-dessus sans générer la liste des carrés,
@@ -349,7 +376,7 @@ sauf que cette boucle est gérée entièrement dans l'interpréteur, alors qu'un
 explicite passerait à chaque itération entre le source et l'interpréteur.
 """
 
-prompt ()
+prompt()
 print """
 Un autre exemple d'expression génératrice utilisé avec une fonction de reduction est:
 
@@ -374,7 +401,7 @@ http://leadsift.com/loop-map-list-comprehension/ permet de comprendre les nuance
 # Ceci est validé par les mesures du site http://leadsift.com/loop-map-list-comprehension/
 # pour des fonctions sumples (en O(n)).
 
-prompt ()
+prompt()
 print """
 Finalement, on peut observer l'équivalence des compréhensions avec l'utilisation des fonctions
 de filtrage et de reduction.
@@ -392,7 +419,7 @@ girls = {   # dictionaire de la forme { triplet: valeur } avec la valeur égale 
 girls = [ t for t in girls if girls.values().count ( girls [ t ] ) > 1 and t [ 0 ] < t [ 1 ] ] # où t est un triplet
 """
 
-prompt ()
+prompt()
 print """
 Cette dernière expression est équivalent à l'usage de la fonction de filtrage couplée à des expressions lambda:
 
@@ -414,7 +441,7 @@ def <anonymous> ( item ) :      # en fait une expression lambda n'a pas de nom
     return girls.values().count ( girls [ item ] ) > 1 and item [ 0 ] < item [ 1 ]
 """
 
-prompt ()
+prompt()
 print """
 Au delà des aspects de performance, les compréhensions donnent un code
 systématiquement plus lisible que les boucles.
@@ -439,7 +466,9 @@ Cf. https://insights.stackoverflow.com/survey/2017 pour plus de détails.
 Les géants Google, Facebook, Netflix, Spotify, Industrial Light and Magic...
 utilisent intensément Python.
 
-Moi pas (j'utilise javascript).
+Moi pas…
+j'utilise javascript, un langage très proche de Python (impérativo-fonctionnel, orienté objet)
+mais bénéficiant d'une meilleure intégration avec le monde du web.
 """
 
 # Sans commentaires la résolution de notre problème s'écrit de façon compacte et donc illisible, en 6 lignes (b=boys, g=girls):
